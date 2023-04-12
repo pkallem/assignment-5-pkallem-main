@@ -22,7 +22,11 @@ public class GraphImpl implements Graph {
 
     @Override
     public boolean addEdge(String src, String dest, double weight) {
-        if (nodes.get(src).isAdjacent(nodes.get(dest)) || !nodes.containsKey(src) || !nodes.containsKey(dest) || weight < 0.0) {
+        if (!nodes.containsKey(src) || !nodes.containsKey(dest) || weight < 0.0) {
+            return false;
+        }
+
+        if (nodes.get(src).isAdjacent(nodes.get(dest))) {
             return false;
         }
 
@@ -52,7 +56,11 @@ public class GraphImpl implements Graph {
 
     @Override
     public boolean deleteEdge(String src, String dest) {
-        if (!(nodes.get(src).isAdjacent(nodes.get(dest))) || !nodes.containsKey(src) || !nodes.containsKey(dest)) {
+        if (!nodes.containsKey(src) || !nodes.containsKey(dest)) {
+            return false;
+        }
+
+        if (!nodes.get(src).isAdjacent(nodes.get(dest))) {
             return false;
         }
         nodes.get(src).deleteEdge(nodes.get(dest));

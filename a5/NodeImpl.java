@@ -105,11 +105,4 @@ public class NodeImpl implements Node {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Node " + this.name + ": { Edges: " +
-                edges + ", InDegree: " + inDegree + " }";
-    }
-
-
 }
