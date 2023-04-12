@@ -26,10 +26,6 @@ public interface Node {
 
      void decrementInDegree();
 
-     int getTopNum();
-
-     void setTopNum(int num);
-
      boolean addEdge(Node otherNode, double weight);
 
      boolean isAdjacent(Node otherNode);

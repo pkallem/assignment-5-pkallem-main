@@ -10,9 +10,9 @@ public interface Edge {
     interfaces and their implementations.
      */
 
-    Node getSrcNode();
+    Node getSourceNode();
 
-    Node getDestNode();
+    Node getDestinationNode();
 
     double getWeight();
 

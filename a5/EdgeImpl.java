@@ -11,23 +11,23 @@ public class EdgeImpl implements Edge {
 
     /*Also, any edge fields you want to add for the object should go in this file.  */
 
-    Node srcNode;
-    Node destNode;
+    Node sourceNode;
+    Node destinationNode;
     double weight;
 
-    public EdgeImpl(Node startNode, Node endNode, double weight) {
-        this.srcNode = startNode;
-        this.destNode = endNode;
+    public EdgeImpl(Node start, Node end, double weight) {
+        this.sourceNode = start;
+        this.destinationNode = end;
         this.weight = weight;
     }
     @Override
-    public Node getSrcNode() {
-        return this.srcNode;
+    public Node getSourceNode() {
+        return this.sourceNode;
     }
 
     @Override
-    public Node getDestNode() {
-        return this.destNode;
+    public Node getDestinationNode() {
+        return this.destinationNode;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class EdgeImpl implements Edge {
     }
 
     @Override
-    public void setWeight(int newWeight) {
-        this.weight = newWeight;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

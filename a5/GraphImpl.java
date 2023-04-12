@@ -98,7 +98,7 @@ public class GraphImpl implements Graph {
             String node = sort.pop();
 
             for(Edge edge : nodes.get(node).getAdjacentEdges()) {
-                Node destNode = edge.getDestNode();
+                Node destNode = edge.getDestinationNode();
                 destNode.decrementInDegree();
 
                 if(destNode.getInDegree() == 0) {
@@ -114,7 +114,7 @@ public class GraphImpl implements Graph {
 
         nodes.forEach((key, value) -> {
             for(Edge edge : value.getAdjacentEdges()) {
-                Node destNode = edge.getDestNode();
+                Node destNode = edge.getDestinationNode();
                 destNode.incrementInDegree();
             }
         });

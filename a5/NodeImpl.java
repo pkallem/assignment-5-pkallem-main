@@ -25,43 +25,28 @@ public class NodeImpl implements Node {
 
     public NodeImpl(String name) {
         this.name = name;
-        edges = new ArrayList<>();
+        this.edges = new ArrayList<>();
         inDegree = 0;
     }
-
     @Override
     public String getName() {
         return this.name;
     }
-
     @Override
     public List<Edge> getAdjacentEdges() {
         return this.edges;
     }
-
     @Override
     public int getInDegree() {
         return this.inDegree;
     }
-
     @Override
     public void incrementInDegree() {
         this.inDegree++;
     }
-
     @Override
     public void decrementInDegree() {
         this.inDegree--;
-    }
-
-    @Override
-    public int getTopNum() {
-        return this.topNum;
-    }
-
-    @Override
-    public void setTopNum(int num) {
-        this.topNum = num;
     }
 
     @Override
@@ -69,22 +54,19 @@ public class NodeImpl implements Node {
         if(otherNode == this) {
             return false;
         }
-
         Edge temp = new EdgeImpl(this, otherNode, weight);
         edges.add(temp);
         otherNode.incrementInDegree();
-
         return true;
     }
 
     @Override
     public boolean isAdjacent(Node otherNode) {
         for(Edge edge : edges) {
-            if(edge.getDestNode() == otherNode) {
+            if(edge.getDestinationNode() == otherNode) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -93,15 +75,13 @@ public class NodeImpl implements Node {
         if(!isAdjacent(otherNode)) {
             return false;
         }
-
         otherNode.decrementInDegree();
         for(Edge edge : edges) {
-            if(edge.getDestNode() == otherNode) {
+            if(edge.getDestinationNode() == otherNode) {
                 edges.remove(edge);
                 break;
             }
         }
-
         return true;
     }
 
