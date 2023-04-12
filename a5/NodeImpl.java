@@ -20,13 +20,12 @@ public class NodeImpl implements Node {
 
     String name;
     List<Edge> edges;
-    int inDegree;
-    int topNum;
+    int numEdges;
 
     public NodeImpl(String name) {
         this.name = name;
         this.edges = new ArrayList<>();
-        inDegree = 0;
+        numEdges = 0;
     }
     @Override
     public String getName() {
@@ -37,33 +36,32 @@ public class NodeImpl implements Node {
         return this.edges;
     }
     @Override
-    public int getInDegree() {
-        return this.inDegree;
+    public int getNumEdges() {
+        return this.numEdges;
     }
     @Override
-    public void incrementInDegree() {
-        this.inDegree++;
+    public void incrementNumEdges() {
+        this.numEdges += 1;
     }
     @Override
-    public void decrementInDegree() {
-        this.inDegree--;
+    public void decrementNumEdges() {
+        this.numEdges -= 1;
     }
-
     @Override
-    public boolean addEdge(Node otherNode, double weight) {
-        if(otherNode == this) {
+    public boolean addEdge(Node other, double weight) {
+        if(other == this) {
             return false;
         }
-        Edge temp = new EdgeImpl(this, otherNode, weight);
+        Edge temp = new EdgeImpl(this, other, weight);
         edges.add(temp);
-        otherNode.incrementInDegree();
+        other.incrementNumEdges();
         return true;
     }
 
     @Override
-    public boolean isAdjacent(Node otherNode) {
+    public boolean isAdjacent(Node other) {
         for(Edge edge : edges) {
-            if(edge.getDestinationNode() == otherNode) {
+            if(edge.getDestinationNode() == other) {
                 return true;
             }
         }
@@ -71,13 +69,13 @@ public class NodeImpl implements Node {
     }
 
     @Override
-    public boolean deleteEdge(Node otherNode) {
-        if(!isAdjacent(otherNode)) {
+    public boolean deleteEdge(Node other) {
+        if(!isAdjacent(other)) {
             return false;
         }
-        otherNode.decrementInDegree();
+        other.decrementNumEdges();
         for(Edge edge : edges) {
-            if(edge.getDestinationNode() == otherNode) {
+            if(edge.getDestinationNode() == other) {
                 edges.remove(edge);
                 break;
             }

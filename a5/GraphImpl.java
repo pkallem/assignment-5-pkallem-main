@@ -21,16 +21,16 @@ public class GraphImpl implements Graph {
     }
 
     @Override
-    public boolean addEdge(String src, String dest, double weight) {
-        if (!nodes.containsKey(src) || !nodes.containsKey(dest) || weight < 0.0) {
+    public boolean addEdge(String source, String destination, double weight) {
+        if (!nodes.containsKey(source) || !nodes.containsKey(destination) || weight < 0.0) {
             return false;
         }
 
-        if (nodes.get(src).isAdjacent(nodes.get(dest))) {
+        if (nodes.get(source).isAdjacent(nodes.get(destination))) {
             return false;
         }
 
-        nodes.get(src).addEdge(nodes.get(dest), weight);
+        nodes.get(source).addEdge(nodes.get(destination), weight);
         return true;
     }
 
@@ -55,15 +55,15 @@ public class GraphImpl implements Graph {
     }
 
     @Override
-    public boolean deleteEdge(String src, String dest) {
-        if (!nodes.containsKey(src) || !nodes.containsKey(dest)) {
+    public boolean deleteEdge(String source, String destination) {
+        if (!nodes.containsKey(source) || !nodes.containsKey(destination)) {
             return false;
         }
 
-        if (!nodes.get(src).isAdjacent(nodes.get(dest))) {
+        if (!nodes.get(source).isAdjacent(nodes.get(destination))) {
             return false;
         }
-        nodes.get(src).deleteEdge(nodes.get(dest));
+        nodes.get(source).deleteEdge(nodes.get(destination));
         return true;
     }
 
@@ -76,20 +76,20 @@ public class GraphImpl implements Graph {
     public int numEdges() {
         int[] edges = new int[1];
         nodes.forEach((key, value) -> {
-            edges[0] += value.getInDegree();
+            edges[0] += value.getNumEdges();
         });
         return edges[0];
     }
 
     @Override
     public Stack<String> topoSort() {
-        Stack<String> returnSort = new Stack<>();
+        Stack<String> sorted = new Stack<>();
         Stack<String> sort = new Stack<>();
-        int nodeCount = nodes.size();
+        int count = nodes.size();
 
         nodes.forEach((key, value) -> {
-            if(value.getInDegree() == 0) {
-                returnSort.push(key);
+            if(value.getNumEdges() == 0) {
+                sorted.push(key);
                 sort.push(key);
             }
         });
@@ -98,27 +98,27 @@ public class GraphImpl implements Graph {
             String node = sort.pop();
 
             for(Edge edge : nodes.get(node).getAdjacentEdges()) {
-                Node destNode = edge.getDestinationNode();
-                destNode.decrementInDegree();
+                Node destinationNode = edge.getDestinationNode();
+                destinationNode.decrementNumEdges();
 
-                if(destNode.getInDegree() == 0) {
-                    returnSort.push(destNode.getName());
-                    sort.push(destNode.getName());
+                if(destinationNode.getNumEdges() == 0) {
+                    sorted.push(destinationNode.getName());
+                    sort.push(destinationNode.getName());
                 }
             }
         }
 
-        if(returnSort.size() != nodeCount) {
+        if(sorted.size() != count) {
             return new Stack<>();
         }
 
         nodes.forEach((key, value) -> {
             for(Edge edge : value.getAdjacentEdges()) {
-                Node destNode = edge.getDestinationNode();
-                destNode.incrementInDegree();
+                Node destinationNode = edge.getDestinationNode();
+                destinationNode.incrementNumEdges();
             }
         });
 
-        return returnSort;
+        return sorted;
     }
 }

@@ -20,15 +20,15 @@ public interface Node {
 
      List<Edge> getAdjacentEdges();
 
-     int getInDegree();
+     int getNumEdges();
 
-     void incrementInDegree();
+     void incrementNumEdges();
 
-     void decrementInDegree();
+     void decrementNumEdges();
 
-     boolean addEdge(Node otherNode, double weight);
+     boolean addEdge(Node other, double weight);
 
-     boolean isAdjacent(Node otherNode);
+     boolean isAdjacent(Node other);
 
-     boolean deleteEdge(Node otherNode);
+     boolean deleteEdge(Node other);
 }

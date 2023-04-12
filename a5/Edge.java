@@ -16,5 +16,5 @@ public interface Edge {
 
     double getWeight();
 
-    void setWeight(int newWeight);
+    void setWeight(int weight);
 }

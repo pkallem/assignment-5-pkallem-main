@@ -1,6 +1,5 @@
 package a5;
 
-import java.util.Map;
 import java.util.Stack;
 
 public interface Graph {
