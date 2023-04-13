@@ -36,19 +36,19 @@ public class GraphImpl implements Graph {
 
     @Override
     public boolean deleteNode(String name) {
-        if(!nodes.containsKey(name)) {
+        if (!nodes.containsKey(name)) {
             return false;
         }
         Node delNode = nodes.get(name);
-        nodes.forEach((key, value) -> {
-            if(delNode.isAdjacent(value)) {
+        for (Node value : nodes.values()) {
+            if (delNode.isAdjacent(value)) {
                 delNode.deleteEdge(value);
             }
 
-            if(value.isAdjacent(delNode)) {
+            if (value.isAdjacent(delNode)) {
                 value.deleteEdge(delNode);
             }
-        });
+        }
 
         nodes.remove(name);
         return true;
@@ -75,9 +75,10 @@ public class GraphImpl implements Graph {
     @Override
     public int numEdges() {
         int[] edges = new int[1];
-        nodes.forEach((key, value) -> {
+
+        for (Node value : nodes.values()) {
             edges[0] += value.getNumEdges();
-        });
+        }
         return edges[0];
     }
 
@@ -112,12 +113,12 @@ public class GraphImpl implements Graph {
             return new Stack<>();
         }
 
-        nodes.forEach((key, value) -> {
+        for(Node value : nodes.values()) {
             for(Edge edge : value.getAdjacentEdges()) {
                 Node destinationNode = edge.getDestinationNode();
                 destinationNode.incrementNumEdges();
             }
-        });
+        }
 
         return sorted;
     }
